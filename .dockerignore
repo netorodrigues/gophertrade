@@ -1,0 +1,6 @@
+.git
+vendor
+*.log
+.env*
+Dockerfile*
+.dockerignore
