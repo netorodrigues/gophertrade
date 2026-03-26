@@ -22,6 +22,7 @@ func NewProductHandler(service *application.ProductService) *ProductHandler {
 
 func (h *ProductHandler) Routes() chi.Router {
 	r := chi.NewRouter()
+	r.Get("/health", HealthCheck)
 	r.Post("/", h.CreateProduct)
 	r.Get("/{id}", h.GetProduct)
 	r.Post("/{id}/stock", h.UpdateStock)

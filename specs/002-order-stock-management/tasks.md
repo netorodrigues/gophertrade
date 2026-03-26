@@ -71,18 +71,18 @@
 
 ### Tests for User Story 2 (MANDATORY) ⚠️
 
-- [ ] T020 [P] [US2] Unit test for order calculation and snapshots in `order/internal/domain/order_test.go`
-- [ ] T021 [P] [US2] Integration test for order creation journey (inter-service) in `order/tests/integration/order_journey_test.go`
+- [x] T020 [P] [US2] Unit test for order calculation and snapshots in `order/internal/domain/order_test.go`
+- [x] T021 [P] [US2] Integration test for order creation journey (inter-service) in `order/tests/integration/order_journey_test.go`
 
 ### Implementation for User Story 2
 
-- [ ] T022 [P] [US2] Create Order and OrderItem Entities (price snapshots) in `order/internal/domain/order.go`
-- [ ] T023 [US2] Implement Order Repository (Postgres/pgx) in `order/internal/infrastructure/persistence/postgres/order_repository.go`
-- [ ] T024 [US2] Implement gRPC Client for Inventory Service in `order/internal/infrastructure/grpc/inventory_client.go`
-- [ ] T025 [US2] Implement Order Service (Coordination with `BatchUpdateStock`) in `order/internal/application/order_service.go`
-- [ ] T026 [US2] Implement Order REST Handler (Chi) in `order/internal/api/http/order_handler.go`
-- [ ] T027 [US2] Implement Order gRPC Handler in `order/internal/api/grpc/order_handler.go`
-- [ ] T028 [US2] Integrate Kafka Producer to emit `OrderCreated` events in `order/internal/infrastructure/event/order_events.go`
+- [x] T022 [P] [US2] Create Order and OrderItem Entities (price snapshots) in `order/internal/domain/order.go`
+- [x] T023 [US2] Implement Order Repository (Postgres/pgx) in `order/internal/infrastructure/persistence/postgres/order_repository.go`
+- [x] T024 [US2] Implement gRPC Client for Inventory Service in `order/internal/infrastructure/grpc/inventory_client.go`
+- [x] T025 [US2] Implement Order Service (Coordination with `BatchUpdateStock`) in `order/internal/application/order_service.go`
+- [x] T026 [US2] Implement Order REST Handler (Chi) in `order/internal/api/http/order_handler.go`
+- [x] T027 [US2] Implement Order gRPC Handler in `order/internal/api/grpc/order_handler.go`
+- [x] T028 [US2] Integrate Kafka Producer to emit `OrderCreated` events in `order/internal/infrastructure/event/order_events.go`
 
 **Checkpoint**: User Story 2 fully functional - inter-service communication verified
 
@@ -96,16 +96,16 @@
 
 ### Tests for User Story 3 (MANDATORY) ⚠️
 
-- [ ] T029 [P] [US3] Integration test for read model sync (Kafka -> Firestore/ES) in `order/tests/integration/read_model_test.go`
-- [ ] T030 [P] [US3] Contract test for query REST API in `order/tests/integration/query_api_test.go`
+- [x] T029 [P] [US3] Integration test for read model sync (Kafka -> Firestore/ES) in `order/tests/integration/read_model_test.go`
+- [x] T030 [P] [US3] Contract test for query REST API in `order/tests/integration/query_api_test.go`
 
 ### Implementation for User Story 3
 
-- [ ] T031 [P] [US3] Implement Kafka Consumer for Firestore sync in `order/internal/infrastructure/event/firestore_consumer.go`
-- [ ] T032 [P] [US3] Implement Kafka Consumer for ElasticSearch sync in `order/internal/infrastructure/event/es_consumer.go`
-- [ ] T033 [US3] Implement Firestore Read Repository in `order/internal/infrastructure/persistence/firestore/order_read_repository.go`
-- [ ] T034 [US3] Implement ElasticSearch Search Repository in `order/internal/infrastructure/persistence/es/order_search_repository.go`
-- [ ] T035 [US3] Implement Query REST Handler (Chi) in `order/internal/api/http/query_handler.go`
+- [x] T031 [P] [US3] Implement Kafka Consumer for Firestore sync in `order/internal/infrastructure/event/firestore_consumer.go`
+- [x] T032 [P] [US3] Implement Kafka Consumer for ElasticSearch sync in `order/internal/infrastructure/event/es_consumer.go`
+- [x] T033 [US3] Implement Firestore Read Repository in `order/internal/infrastructure/persistence/firestore/order_read_repository.go`
+- [x] T034 [US3] Implement ElasticSearch Search Repository in `order/internal/infrastructure/persistence/es/order_search_repository.go`
+- [x] T035 [US3] Implement Query REST Handler (Chi) in `order/internal/api/http/query_handler.go`
 
 **Checkpoint**: All user stories functional - CQRS architecture complete
 
@@ -115,11 +115,11 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T036 [P] [US1, US2] Integrate OpenTelemetry (Tracing/Metrics) across both services in `internal/shared/telemetry/otel.go`
-- [ ] T037 Performance audit: Validate P95 < 200ms for order creation in `order/tests/performance/`
-- [ ] T038 Add health check endpoints (/health) to both services in `api/http/health.go`
-- [ ] T039 [P] Final documentation updates in `quickstart.md`
-- [ ] T040 Final validation against all requirements in `spec.md`
+- [x] T036 [P] [US1, US2] Integrate OpenTelemetry (Tracing/Metrics) across both services in `internal/shared/telemetry/otel.go`
+- [x] T037 Performance audit: Validate P95 < 200ms for order creation in `order/tests/performance/`
+- [x] T038 Add health check endpoints (/health) to both services in `api/http/health.go`
+- [x] T039 [P] Final documentation updates in `quickstart.md`
+- [x] T040 Final validation against all requirements in `spec.md`
 
 ---
 
