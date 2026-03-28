@@ -7,6 +7,9 @@ services:
       POSTGRES_DB: gophertrade
     ports:
       - "5432:5432"
+    volumes:
+      - ./inventory/internal/infrastructure/persistence/postgres/migrations/001_create_products.up.sql:/docker-entrypoint-initdb.d/1_create_products.sql
+      - ./order/internal/infrastructure/persistence/postgres/migrations/001_create_orders.up.sql:/docker-entrypoint-initdb.d/2_create_orders.sql
 
   kafka:
     image: public.ecr.aws/bitnami/kafka:latest

@@ -26,3 +26,8 @@ go.work
 
 # Env
 .env*
+vendor/
+
+# Binários compilados
+inventory/main
+order/main

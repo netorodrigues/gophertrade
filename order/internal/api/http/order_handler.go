@@ -5,9 +5,6 @@ import (
 	"net/http"
 
 	"gophertrade/order/internal/application"
-
-	"github.com/go-chi/chi/v5"
-	"github.com/google/uuid"
 )
 
 type OrderHandler struct {
@@ -20,13 +17,7 @@ func NewOrderHandler(service *application.OrderService) *OrderHandler {
 	}
 }
 
-func (h *OrderHandler) Routes() chi.Router {
-	r := chi.NewRouter()
-	r.Get("/health", HealthCheck)
-	r.Post("/", h.CreateOrder)
-	r.Get("/{id}", h.GetOrder)
-	return r
-}
+
 
 type CreateOrderRequest struct {
 	Items []struct {
@@ -64,20 +55,3 @@ func (h *OrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(order)
 }
 
-func (h *OrderHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
-	idStr := chi.URLParam(r, "id")
-	id, err := uuid.Parse(idStr)
-	if err != nil {
-		http.Error(w, "invalid order ID", http.StatusBadRequest)
-		return
-	}
-
-	order, err := h.service.GetOrder(r.Context(), id)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(order)
-}

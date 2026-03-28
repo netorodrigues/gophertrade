@@ -1,0 +1,130 @@
+{
+	"info": {
+		"name": "GopherTrade API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Inventory Service",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{inventory_url}}/api/v1/products/health",
+							"host": ["{{inventory_url}}"],
+							"path": ["api", "v1", "products", "health"]
+						}
+					}
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Camiseta Algodao Pima\",\n    \"price_cents\": 15000,\n    \"initial_stock\": 100\n}"
+						},
+						"url": {
+							"raw": "{{inventory_url}}/api/v1/products",
+							"host": ["{{inventory_url}}"],
+							"path": ["api", "v1", "products"]
+						}
+					}
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{inventory_url}}/api/v1/products/{{product_id}}",
+							"host": ["{{inventory_url}}"],
+							"path": ["api", "v1", "products", "{{product_id}}"]
+						}
+					}
+				},
+				{
+					"name": "Update Stock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"delta\": 5\n}"
+						},
+						"url": {
+							"raw": "{{inventory_url}}/api/v1/products/{{product_id}}/stock",
+							"host": ["{{inventory_url}}"],
+							"path": ["api", "v1", "products", "{{product_id}}", "stock"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Order Service",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{order_url}}/api/v1/orders/health",
+							"host": ["{{order_url}}"],
+							"path": ["api", "v1", "orders", "health"]
+						}
+					}
+				},
+				{
+					"name": "Create Order (Write - PostgreSQL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"items\": [\n        {\n            \"product_id\": \"{{product_id}}\",\n            \"quantity\": 2\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{order_url}}/api/v1/orders",
+							"host": ["{{order_url}}"],
+							"path": ["api", "v1", "orders"]
+						}
+					}
+				},
+				{
+					"name": "View Order (Read - Firestore CQRS)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{order_url}}/api/v1/orders/{{order_id}}",
+							"host": ["{{order_url}}"],
+							"path": ["api", "v1", "orders", "{{order_id}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Orders (Search - Elasticsearch CQRS)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{order_url}}/api/v1/orders?q=PENDING",
+							"host": ["{{order_url}}"],
+							"path": ["api", "v1", "orders"],
+							"query": [
+								{"key": "q", "value": "PENDING"}
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}

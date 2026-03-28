@@ -22,12 +22,6 @@ func NewQueryHandler(fsRepo *firestore.OrderReadRepository, esRepo *es.OrderSear
 	}
 }
 
-func (h *QueryHandler) Routes() chi.Router {
-	r := chi.NewRouter()
-	r.Get("/search", h.SearchOrders)
-	r.Get("/view/{id}", h.ViewOrder)
-	return r
-}
 
 func (h *QueryHandler) SearchOrders(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query().Get("q")

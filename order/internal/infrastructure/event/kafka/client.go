@@ -15,9 +15,11 @@ type Client struct {
 
 func NewWriter(addr string, topic string) *kafka.Writer {
 	return &kafka.Writer{
-		Addr:     kafka.TCP(addr),
-		Topic:    topic,
-		Balancer: &kafka.LeastBytes{},
+		Addr:                   kafka.TCP(addr),
+		Topic:                  topic,
+		Balancer:               &kafka.LeastBytes{},
+		AllowAutoTopicCreation: true,
+		MaxAttempts:            10,
 	}
 }
 

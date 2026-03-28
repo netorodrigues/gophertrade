@@ -6,9 +6,7 @@ option go_package = "gophertrade/proto/inventory/v1;inventoryv1";
 
 service InventoryService {
   rpc GetProduct (GetProductRequest) returns (GetProductResponse);
-  rpc UpdateStock (UpdateStockRequest) returns (UpdateStockResponse);
   rpc BatchUpdateStock (BatchUpdateStockRequest) returns (BatchUpdateStockResponse);
-  rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
 }
 
 message GetProductRequest {
@@ -23,18 +21,6 @@ message GetProductResponse {
   int32 version = 5;
 }
 
-message UpdateStockRequest {
-  string product_id = 1;
-  int32 quantity_delta = 2; // Can be negative
-  int32 expected_version = 3; // Optimistic locking
-}
-
-message UpdateStockResponse {
-  bool success = 1;
-  string message = 2;
-  int32 new_version = 3;
-}
-
 message StockUpdateItem {
   string product_id = 1;
   int32 quantity_delta = 2; // Usually negative for orders
@@ -47,14 +33,4 @@ message BatchUpdateStockRequest {
 message BatchUpdateStockResponse {
   bool success = 1;
   string message = 2;
-}
-
-message CreateProductRequest {
-  string name = 1;
-  int64 price_cents = 2;
-  int32 initial_stock = 3;
-}
-
-message CreateProductResponse {
-  string product_id = 1;
 }

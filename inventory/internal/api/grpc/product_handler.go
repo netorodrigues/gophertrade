@@ -24,16 +24,6 @@ func NewProductHandler(service *application.ProductService) *ProductHandler {
 	}
 }
 
-func (h *ProductHandler) CreateProduct(ctx context.Context, req *inventoryv1.CreateProductRequest) (*inventoryv1.CreateProductResponse, error) {
-	product, err := h.service.CreateProduct(ctx, req.Name, req.PriceCents, int64(req.InitialStock))
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to create product: %v", err)
-	}
-
-	return &inventoryv1.CreateProductResponse{
-		ProductId: product.ID.String(),
-	}, nil
-}
 
 func (h *ProductHandler) GetProduct(ctx context.Context, req *inventoryv1.GetProductRequest) (*inventoryv1.GetProductResponse, error) {
 	id, err := uuid.Parse(req.ProductId)
@@ -58,35 +48,6 @@ func (h *ProductHandler) GetProduct(ctx context.Context, req *inventoryv1.GetPro
 	}, nil
 }
 
-func (h *ProductHandler) UpdateStock(ctx context.Context, req *inventoryv1.UpdateStockRequest) (*inventoryv1.UpdateStockResponse, error) {
-	id, err := uuid.Parse(req.ProductId)
-	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "invalid product id: %v", err)
-	}
-
-	err = h.service.UpdateStock(ctx, id, int64(req.QuantityDelta))
-	if err != nil {
-		if errors.Is(err, domain.ErrInsufficientStock) {
-			return &inventoryv1.UpdateStockResponse{Success: false, Message: "insufficient stock"}, nil
-		}
-		if errors.Is(err, domain.ErrConflict) {
-			return &inventoryv1.UpdateStockResponse{Success: false, Message: "version conflict"}, nil
-		}
-		return nil, status.Errorf(codes.Internal, "failed to update stock: %v", err)
-	}
-
-	// Fetch new version
-	p, _ := h.service.GetProduct(ctx, id)
-	var newVersion int32
-	if p != nil {
-		newVersion = p.Version
-	}
-
-	return &inventoryv1.UpdateStockResponse{
-		Success:    true,
-		NewVersion: newVersion,
-	}, nil
-}
 
 func (h *ProductHandler) BatchUpdateStock(ctx context.Context, req *inventoryv1.BatchUpdateStockRequest) (*inventoryv1.BatchUpdateStockResponse, error) {
 	updates := make([]application.StockUpdate, len(req.Updates))
