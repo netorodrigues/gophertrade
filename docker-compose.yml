@@ -14,12 +14,13 @@ services:
   kafka:
     image: public.ecr.aws/bitnami/kafka:latest
     environment:
-      - KAFKA_CFG_NODE_ID=0
+      - BITNAMI_DEBUG=true
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_NODE_ID=1
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
     ports:
       - "9092:9092"
@@ -33,7 +34,7 @@ services:
       - "9200:9200"
 
   firestore:
-    image: google/cloud-sdk:alpine
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:emulators
     command: gcloud beta emulators firestore start --host-port=0.0.0.0:8080
     ports:
       - "8080:8080"
